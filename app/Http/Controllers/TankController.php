@@ -12,7 +12,8 @@ class TankController extends Controller
      */
     public function index()
     {
-        //
+        $data = Tank::latest()->get();
+        return view('admin.tanks', ["data" => $data]);
     }
 
     /**
@@ -28,7 +29,16 @@ class TankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required'
+        ]);
+
+        $manager = new Tank();
+        $manager->name = $request->name;
+        $manager->address = $request->address;
+        $manager->save();
+        return redirect('/admin/tanks');
     }
 
     /**

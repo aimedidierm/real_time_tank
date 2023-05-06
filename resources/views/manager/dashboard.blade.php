@@ -1,73 +1,31 @@
-<?php
-require '../php-includes/connect.php';
-require 'php-includes/check-login.php';
+@extends('layout')
 
-?>
-<!DOCTYPE html>
-<html>
+@section('content')
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="refresh" content="5">
-
-    <title>UFM - Manager Dashboard</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/font.css">
-    <script src="../js/jquery.js" type="text/javascript"></script>
-
-
-    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-</head>
-
-<?php include_once 'php-includes/menu.php'; ?>
-
-
+<x-manager-bar />
 
 <div class="container">
-    <!--container start-->
-    <div class="row">
-        <div class="col-md-12">
-            <!-- Styles -->
-            <style>
-                #chartdiv {
-                    width: 25%;
-                    height: 400px;
-                }
-            </style>
-
-            <!-- Resources -->
-            <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-            <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-            <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-
-            <?php
-$sql = "SELECT *  FROM manager WHERE email= ? limit 1";
-$stmt = $db->prepare($sql);
-$stmt->execute(array($_SESSION['code']));
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$tank_id = $row['tank_id'];
-// Kureba ibi mukigega
-$sql = "SELECT s.tank_id, s.level, s.volume, t.names, t.id FROM status AS s JOIN tanks AS t WHERE t.id = s.tank_id AND s.tank_id = ? limit 1";
-$stmt = $db->prepare($sql);
-$stmt->execute(array($tank_id));
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$level = $row['level'];
-$volume = $row['volume'];
-$names = $row['names'];
-if(isset($_POST['open'])){
-  // Gufungura amazi
-}
-if(isset($_POST['close'])){
-  // Gufunga amazi
-}
-?>
-            <!-- Chart code -->
-            <script>
-                am4core.ready(function() {
+  <!--container start-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel">
+        <div class="table-responsive">
+          <style>
+            #chartdiv {
+              width: 25%;
+              height: 400px;
+            }
+          </style>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script>
+  am4core.ready(function() {
 
 // Themes begin
 am4core.useTheme(am4themes_animated);
@@ -76,14 +34,14 @@ am4core.useTheme(am4themes_animated);
 // Create chart instance
 var chart = am4core.create("chartdiv", am4charts.XYChart3D);
 
-chart.titles.create().text = "Universal fluid management system";
+chart.titles.create().text = "Real time tank";
 
 // Add data
 
 chart.data = [{
-  "category": '<?php echo $names ?>',
-  "value1": '<?php echo $level ?>',
-  "value2": '<?php echo 100 - $level ?>'
+"category": '<?php echo $names ?>',
+"value1": '<?php echo $level ?>',
+"value2": '<?php echo 100 - $level ?>'
 }];
 
 // Create axes
@@ -99,12 +57,12 @@ valueAxis.max = 110;
 valueAxis.strictMinMax = true;
 valueAxis.renderer.baseGrid.disabled = true;
 valueAxis.renderer.labels.template.adapter.add("text", function(text) {
-  if ((text > 100) || (text < 0)) {
-    return "";
-  }
-  else {
-    return text + "%";
-  }
+if ((text > 100) || (text < 0)) {
+return "";
+}
+else {
+return text + "%";
+}
 })
 
 // Create series
@@ -128,32 +86,5 @@ series2.columns.template.strokeOpacity = 0.2;
 series2.columns.template.strokeWidth = 2;
 
 }); // end am4core.ready()
-            </script>
-
-            <!-- HTML -->
-            <div id="chartdiv">
-            </div>
-            <div>
-                <h1>
-                    <?php
-  $total = $level/100 * $volume;
-  echo $total;
-  ?>
-                    L
-                </h1>
-            </div>
-            <br>
-        </div>
-    </div>
-</div>
-</div>
-<!--Footer start-->
-<div class="row footer">
-    <div class="col-md-3 box">
-        <a href="#" target="_blank">2021 Universal fluid management system</a>
-    </div>
-</div>
-<!--footer end-->
-</body>
-
-</html>
+</script>
+@stop

@@ -13,6 +13,15 @@
             <div class="panel">
                 <div class="table-responsive">
                     <table class="table table-striped title1">
+                        @if($errors->any())
+                        <tr colspan="5">
+                            <center>
+                                <button type="button" class="btn btn-danger toastrDefaultError">
+                                    {{$errors->first()}}
+                                </button>
+                            </center>
+                        </tr>
+                        @endif
                         <tr>
                             <td>
                                 <b>N</b>
@@ -64,6 +73,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <form role="form" action="/admin/managers" method="post">
+                                        @csrf
                                         <fieldset>
                                             <label>Names </label>
                                             <input class="form-control" name="name" type="text" required><br>
@@ -71,6 +81,8 @@
                                             <input class="form-control" name="email" type="email" required><br>
                                             <label>Phone </label>
                                             <input class="form-control" name="phone" type="number" required><br>
+                                            <label>Tank </label>
+                                            <input class="form-control" name="tank_id" type="number" required><br>
                                             <label>Password </label>
                                             <input class="form-control" name="password" type="password" required><br>
                                             <button type="submit" class="btn btn-lg btn-success btn-block">Create

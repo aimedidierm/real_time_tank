@@ -2,11 +2,11 @@
     <div class="header">
         <div class="row">
             <div class="col-lg-6">
-                <span class="logo">Universal fluid management system</span>
+                <span class="logo">Real time tank</span>
             </div>
             <div class="col-md-4 col-md-offset-2">
                 <span class="pull-right top title1">
-                    <a href="../php-includes/logout.php" class="log">
+                    <a href="/logout" class="log">
                         <span class="glyphicon glyphicon-log-out" aria-hidden="true">
 
                         </span>&nbsp;Signout</button>
@@ -28,18 +28,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><b>UFMS - Manager</b></a>
+                    <a class="navbar-brand" href="#"><b>RT - Manager</b></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="dashboard.php"><span class="glyphicon glyphicon-stats"
+                        <li><a href="#"><span class="glyphicon glyphicon-stats"
                                     aria-hidden="true"></span>&nbsp;Dashboard</a></li>
-                        <li><a href="account.php"><span class="glyphicon glyphicon-user"
-                                    aria-hidden="true"></span>&nbsp;Account</a></li>
-                        <li><a href="users.php"><span class="glyphicon glyphicon-user"
-                                    aria-hidden="true"></span>&nbsp;Users</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->

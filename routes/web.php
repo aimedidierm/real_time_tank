@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TankController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\StatusController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 

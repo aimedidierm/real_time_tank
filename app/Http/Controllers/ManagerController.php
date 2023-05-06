@@ -33,6 +33,7 @@ class ManagerController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required',
+            'tank_id' => 'required',
             'password' => 'required'
         ]);
 
@@ -40,6 +41,7 @@ class ManagerController extends Controller
         $manager->name = $request->name;
         $manager->email = $request->email;
         $manager->phone = $request->phone;
+        $manager->tank_id = $request->tank_id;
         $manager->password = bcrypt($request->password);
         $manager->save();
         return redirect('/admin/managers');

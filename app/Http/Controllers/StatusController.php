@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Manager;
 use App\Models\Status;
+use App\Models\Tank;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StatusController extends Controller
 {
@@ -12,7 +15,10 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+        $manager = Manager::where('id', Auth::guard('manager')->id())->first();
+        $tankId = $manager['tank_id'];
+        $tankStatus = Status::latest()->where('tank_id', $tankId)->first();
+        return view('manager.dashboard', ["data" => $tankStatus]);
     }
 
     /**
